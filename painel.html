@@ -774,7 +774,7 @@ textarea {
         <div class="control-group">
             <label>🔗 Your Custom Link</label>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">slotlymed.vercel.app/</span>
+                <span style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">slotlymed-frontend.vercel.app/</span>
                 <input type="text" id="customLink" placeholder="my-clinic" style="flex: 1;" maxlength="50">
             </div>
             <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4;">
@@ -897,8 +897,8 @@ textarea {
             <p style="margin-bottom: 12px;">You are about to change your booking link:</p>
             
             <div class="modal-link-change">
-                <div class="modal-link-old" id="modalOldLink">Old: slotlymed.vercel.app/old-link</div>
-                <div class="modal-link-new" id="modalNewLink">New: slotlymed.vercel.app/new-link</div>
+                <div class="modal-link-old" id="modalOldLink">Old: slotlymed-frontend.vercel.app/old-link</div>
+                <div class="modal-link-new" id="modalNewLink">New: slotlymed-frontend.vercel.app/new-link</div>
             </div>
 
             <p style="font-weight: 600; color: #DC2626; margin-bottom: 12px;">⚠️ Important:</p>
@@ -1463,6 +1463,24 @@ async function saveConfiguration() {
         return;
     }
     
+    // VERIFICAR SE LINK JÁ EXISTE (para novos médicos ou mudança de link)
+    if (!savedDoctorLink || savedDoctorLink !== customLink) {
+        try {
+            const checkResponse = await fetch(`https://slotlymed-backend.vercel.app/api/get-doctor?id=${customLink}`);
+            const checkData = await checkResponse.json();
+            
+            if (checkData.success) {
+                // Link já existe
+                showMessage('This link is already taken. Please choose another one.', 'error');
+                document.getElementById('customLink').focus();
+                return;
+            }
+        } catch (e) {
+            // Se der erro 404, significa que não existe - podemos continuar
+            console.log('Link available:', customLink);
+        }
+    }
+    
     // VERIFICAR SE ESTÁ MUDANDO O LINK
     if (savedDoctorLink && savedDoctorLink !== customLink && !pendingLinkChange) {
         // Mostrar modal de confirmação
@@ -1520,7 +1538,7 @@ async function saveConfiguration() {
             savedDoctorLink = doctorId;
             
             // Atualizar link na interface
-            const fullLink = `slotlymed.vercel.app/${doctorId}`;
+            const fullLink = `slotlymed-frontend.vercel.app/${doctorId}`;
             document.getElementById('bookingLink').textContent = fullLink;
             
             // Calcular data de expiração (180 dias)
@@ -1599,8 +1617,8 @@ let pendingLinkChange = false;
 
 // Funções do Modal
 function showLinkChangeModal(oldLink, newLink) {
-    document.getElementById('modalOldLink').textContent = `Old: slotlymed.vercel.app/${oldLink}`;
-    document.getElementById('modalNewLink').textContent = `New: slotlymed.vercel.app/${newLink}`;
+    document.getElementById('modalOldLink').textContent = `Old: slotlymed-frontend.vercel.app/${oldLink}`;
+    document.getElementById('modalNewLink').textContent = `New: slotlymed-frontend.vercel.app/${newLink}`;
     document.getElementById('linkChangeModal').classList.add('active');
 }
 
