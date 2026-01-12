@@ -655,7 +655,7 @@ body {
             <i class="fas fa-check"></i>
         </div>
         <h2 data-i18n="success_title">Appointment Confirmed!</h2>
-        <p data-i18n="success_message">Your appointment has been successfully scheduled. You will receive a confirmation email shortly.</p>
+        <p data-i18n="success_message">Your appointment has been successfully scheduled.</p>
         
         <div class="appointment-details" id="appointmentDetails">
             <!-- Details will be inserted here -->
@@ -690,7 +690,7 @@ const translations = {
         notes_placeholder: "Any specific concerns or questions...",
         book_appointment: "Book Appointment",
         success_title: "Appointment Confirmed!",
-        success_message: "Your appointment has been successfully scheduled. You will receive a confirmation email shortly.",
+        success_message: "Your appointment has been successfully scheduled.",
         close: "Close",
         no_available_slots: "No available time slots for this date",
         add_to_calendar: "Add to Calendar",
@@ -714,7 +714,7 @@ const translations = {
         notes_placeholder: "Alguma dúvida ou preocupação específica...",
         book_appointment: "Agendar Consulta",
         success_title: "Consulta Confirmada!",
-        success_message: "Sua consulta foi agendada com sucesso. Você receberá um email de confirmação em breve.",
+        success_message: "Sua consulta foi agendada com sucesso.",
         close: "Fechar",
         no_available_slots: "Sem horários disponíveis para esta data",
         add_to_calendar: "Adicionar ao Calendário",
@@ -738,7 +738,7 @@ const translations = {
         notes_placeholder: "Alguna preocupación o pregunta específica...",
         book_appointment: "Reservar Cita",
         success_title: "¡Cita Confirmada!",
-        success_message: "Su cita ha sido programada con éxito. Recibirá un email de confirmación en breve.",
+        success_message: "Su cita ha sido programada con éxito.",
         close: "Cerrar",
         no_available_slots: "No hay horarios disponibles para esta fecha",
         add_to_calendar: "Añadir al Calendario",
@@ -762,7 +762,7 @@ const translations = {
         notes_placeholder: "Des préoccupations ou questions spécifiques...",
         book_appointment: "Réserver un Rendez-vous",
         success_title: "Rendez-vous Confirmé!",
-        success_message: "Votre rendez-vous a été programmé avec succès. Vous recevrez un email de confirmation sous peu.",
+        success_message: "Votre rendez-vous a été programmé avec succès.",
         close: "Fermer",
         no_available_slots: "Aucun créneau disponible pour cette date",
         add_to_calendar: "Ajouter au Calendrier",
@@ -786,7 +786,7 @@ const translations = {
         notes_placeholder: "Spezifische Anliegen oder Fragen...",
         book_appointment: "Termin Buchen",
         success_title: "Termin Bestätigt!",
-        success_message: "Ihr Termin wurde erfolgreich gebucht. Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
+        success_message: "Ihr Termin wurde erfolgreich gebucht.",
         close: "Schließen",
         no_available_slots: "Keine verfügbaren Zeitfenster für dieses Datum",
         add_to_calendar: "Zum Kalender hinzufügen",
@@ -810,7 +810,7 @@ const translations = {
         notes_placeholder: "Preoccupazioni o domande specifiche...",
         book_appointment: "Prenota Appuntamento",
         success_title: "Appuntamento Confermato!",
-        success_message: "Il tuo appuntamento è stato programmato con successo. Riceverai un'email di conferma a breve.",
+        success_message: "Il tuo appuntamento è stato programmato con successo.",
         close: "Chiudi",
         no_available_slots: "Nessun orario disponibile per questa data",
         add_to_calendar: "Aggiungi al Calendario",
@@ -1409,13 +1409,25 @@ function addPreviewBanner() {
             <h3 style="margin: 0 0 8px 0; color: #0369A1; font-size: 1.2rem;">
                 👁️ Preview Mode - Patient View
             </h3>
-            <p style="margin: 0; color: #0C4A6E; font-size: 0.9rem;">
+            <p style="margin: 0 0 12px 0; color: #0C4A6E; font-size: 0.9rem;">
                 This is how patients will see your booking page. Appointment booking is disabled in preview mode.
             </p>
+            <button onclick="showExampleConfirmation()" style="
+                background: #0EA5E9;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.85rem;
+            ">
+                👁️ Preview Confirmation Screen
+            </button>
         </div>
     `;
     document.body.prepend(banner);
-    document.body.style.paddingTop = '120px';
+    document.body.style.paddingTop = '140px';
     
     // Desabilitar botão de booking
     const bookBtn = document.querySelector('button[onclick="bookAppointment()"]');
@@ -1425,6 +1437,22 @@ function addPreviewBanner() {
         bookBtn.style.cursor = 'not-allowed';
         bookBtn.textContent = 'Booking Disabled (Preview Mode)';
     }
+}
+
+function showExampleConfirmation() {
+    // Criar dados de exemplo para o modal
+    const exampleDate = new Date();
+    exampleDate.setDate(exampleDate.getDate() + 3); // 3 dias no futuro
+    
+    const exampleAppointment = {
+        name: 'Maria Silva',
+        email: 'maria@example.com',
+        phone: '+55 11 99999-9999',
+        date: exampleDate,
+        time: '14:30'
+    };
+    
+    showSuccessModal(exampleAppointment);
 }
 
 </script>
