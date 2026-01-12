@@ -1100,7 +1100,7 @@ function renderCalendar() {
     }
     
     const maxDate = new Date();
-    maxDate.setMonth(maxDate.getMonth() + 3);
+    maxDate.setMonth(maxDate.getMonth() + 6);
     if (year > maxDate.getFullYear() || (year === maxDate.getFullYear() && month >= maxDate.getMonth())) {
         nextBtn.disabled = true;
     } else {
