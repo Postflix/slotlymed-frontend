@@ -1375,6 +1375,16 @@ function closeModal() {
     document.getElementById('successModal').classList.remove('active');
 }
 
+// Fechar modal com tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('successModal');
+        if (modal.classList.contains('active')) {
+            closeModal();
+        }
+    }
+});
+
 function updateLanguage() {
     const t = translations[currentLanguage];
     
