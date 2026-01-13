@@ -770,21 +770,6 @@ textarea {
             <input type="text" id="welcomeMsg" placeholder="">
         </div>
 
-        <!-- Link Personalizado -->
-        <div class="control-group">
-            <label>🔗 Your Custom Link</label>
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">slotlymed-frontend.vercel.app/</span>
-                <input type="text" id="customLink" placeholder="my-clinic" style="flex: 1;" maxlength="50">
-            </div>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4;">
-                💡 <strong>Choose carefully!</strong> Only letters, numbers and hyphens.<br>
-                Examples: <code>dr-john-smith</code>, <code>heart-clinic</code>, <code>downtown-medical</code><br>
-                ⚠️ You can change it later, but the old link will stop working.
-            </p>
-            <div id="linkAvailability" style="font-size: 0.8rem; margin-top: 8px; display: none;"></div>
-        </div>
-
         <!-- Horários -->
         <div class="control-group">
             <label>🤖 <span data-i18n="schedule_label">AI Schedule Configuration</span></label>
@@ -815,6 +800,21 @@ textarea {
             
             <textarea id="scheduleInput" placeholder=""></textarea>
             <button onclick="processSchedule()" id="btnProcessSchedule" class="btn-secondary" style="margin-top: 8px;" data-i18n="generate_schedule">Generate Slots</button>
+        </div>
+
+        <!-- Link Personalizado -->
+        <div class="control-group">
+            <label>🔗 Your Custom Link</label>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">slotlymed-frontend.vercel.app/</span>
+                <input type="text" id="customLink" placeholder="my-clinic" style="flex: 1;" maxlength="50">
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4;">
+                💡 <strong>Choose carefully!</strong> Only letters, numbers and hyphens.<br>
+                Examples: <code>dr-john-smith</code>, <code>heart-clinic</code>, <code>downtown-medical</code><br>
+                ⚠️ You can change it later, but the old link will stop working.
+            </p>
+            <div id="linkAvailability" style="font-size: 0.8rem; margin-top: 8px; display: none;"></div>
         </div>
 
         <button onclick="saveConfiguration()" id="btnSave" class="btn-main" data-i18n="save_config">Save & Generate Link</button>
