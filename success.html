@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SlotlyCare!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 50%, #D1FAE5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        h1 {
+            color: #0F172A;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #64748B;
+            margin-bottom: 30px;
+        }
+
+        .customer-id-box {
+            background: #F1F5F9;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .customer-id-box label {
+            font-size: 0.85rem;
+            color: #64748B;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .customer-id-box .id-value {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #0F172A;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .copy-btn:hover {
+            background: #2563EB;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .warning-box p {
+            color: #92400E;
+            font-size: 0.9rem;
+        }
+
+        .warning-box strong {
+            color: #78350F;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.error {
+            background: #FEE2E2;
+            color: #DC2626;
+            display: block;
+        }
+
+        .message.success {
+            background: #D1FAE5;
+            color: #059669;
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #E2E8F0;
+            border-radius: 50%;
+            border-top-color: #10B981;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px;
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Loading state -->
+        <div id="loadingState" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Confirming your payment...</p>
+        </div>
+
+        <!-- Success state -->
+        <div id="successState" style="display: none;">
+            <div class="success-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <h1>Payment Successful!</h1>
+            <p class="subtitle">Welcome to SlotlyCare. Let's set up your account.</p>
+
+            <div class="customer-id-box">
+                <label>Your Customer ID (save this!)</label>
+                <div class="id-value" id="customerIdDisplay"></div>
+                <button class="copy-btn" onclick="copyCustomerId()">📋 Copy</button>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Important:</strong> Save your Customer ID! You'll need it along with your password to log in. This is your unique access key.</p>
+            </div>
+
+            <div id="messageBox" class="message"></div>
+
+            <form onsubmit="handleSetPassword(event)">
+                <div class="form-group">
+                    <label for="password">Create Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Enter a strong password"
+                        required
+                        minlength="6"
+                    >
+                    <p class="password-requirements">Minimum 6 characters</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        placeholder="Confirm your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnSetPassword">
+                    Create Account & Continue
+                </button>
+            </form>
+        </div>
+
+        <!-- Error state -->
+        <div id="errorState" style="display: none; text-align: center;">
+            <h1>😕 Something went wrong</h1>
+            <p class="subtitle">We couldn't confirm your payment. Please contact support.</p>
+            <a href="subscribe.html" class="btn-primary" style="display: inline-block; margin-top: 20px; text-decoration: none;">Try Again</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://slotlycare-backend.vercel.app';
+        let customerId = null;
+
+        // Get session_id from URL
+        async function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+
+            if (!sessionId) {
+                showError();
+                return;
+            }
+
+            try {
+                // Get checkout session details
+                const response = await fetch(`${API_BASE}/api/checkout-session/${sessionId}`);
+                const data = await response.json();
+
+                if (data.success && data.customer_id) {
+                    customerId = data.customer_id;
+                    document.getElementById('customerIdDisplay').textContent = customerId;
+                    
+                    document.getElementById('loadingState').style.display = 'none';
+                    document.getElementById('successState').style.display = 'block';
+                } else {
+                    showError();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+        }
+
+        function copyCustomerId() {
+            navigator.clipboard.writeText(customerId);
+            const btn = event.target;
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => {
+                btn.textContent = '📋 Copy';
+            }, 2000);
+        }
+
+        async function handleSetPassword(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const btn = document.getElementById('btnSetPassword');
+            const messageBox = document.getElementById('messageBox');
+
+            // Reset message
+            messageBox.className = 'message';
+            messageBox.style.display = 'none';
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            // Show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Creating account...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/set-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        customer_id: customerId,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Save to localStorage
+                    localStorage.setItem('slotlycare_customer_id', customerId);
+                    localStorage.setItem('slotlycare_logged_in', 'true');
+
+                    showMessage('Account created! Redirecting to your panel...', 'success');
+
+                    // Redirect to panel
+                    setTimeout(() => {
+                        window.location.href = 'painel.html';
+                    }, 2000);
+                } else {
+                    showMessage(data.error || 'Failed to create account', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = 'Create Account & Continue';
+                }
+            } catch (error) {
+                showMessage('Connection error. Please try again.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = 'Create Account & Continue';
+            }
+        }
+
+        function showMessage(text, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = text;
+            messageBox.className = `message ${type}`;
+        }
+
+        // Initialize on page load
+        window.onload = init;
+    </script>
+</body>
+</html>

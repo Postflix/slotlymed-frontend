@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SlotlyCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 50%, #E0F2FE 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            color: #0F172A;
+        }
+
+        .logo h1 span {
+            color: #3B82F6;
+        }
+
+        .logo p {
+            color: #64748B;
+            margin-top: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #94A3B8;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.error {
+            background: #FEE2E2;
+            color: #DC2626;
+            display: block;
+        }
+
+        .message.success {
+            background: #D1FAE5;
+            color: #059669;
+            display: block;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #E2E8F0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            color: #94A3B8;
+            position: relative;
+        }
+
+        .signup-link {
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #64748B;
+            margin-top: 6px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Slotly<span>Care</span></h1>
+            <p>Healthcare Professional Portal</p>
+        </div>
+
+        <div id="messageBox" class="message"></div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="customerId">Customer ID</label>
+                <input 
+                    type="text" 
+                    id="customerId" 
+                    placeholder="cus_xxxxxxxxxx"
+                    required
+                >
+                <p class="help-text">Your unique ID received after subscription</p>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                Sign In
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>New here?</span>
+        </div>
+
+        <div class="signup-link">
+            <p>Don't have an account? <a href="subscribe.html">Subscribe now</a></p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://slotlycare-backend.vercel.app';
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const customerId = document.getElementById('customerId').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btnLogin');
+            const messageBox = document.getElementById('messageBox');
+            
+            // Reset message
+            messageBox.className = 'message';
+            messageBox.style.display = 'none';
+            
+            // Validate
+            if (!customerId || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Signing in...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        customer_id: customerId,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Save to localStorage
+                    localStorage.setItem('slotlycare_customer_id', customerId);
+                    localStorage.setItem('slotlycare_logged_in', 'true');
+                    
+                    showMessage('Login successful! Redirecting...', 'success');
+                    
+                    // Redirect to panel
+                    setTimeout(() => {
+                        window.location.href = 'painel.html';
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Invalid credentials', 'error');
+                }
+            } catch (error) {
+                showMessage('Connection error. Please try again.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Sign In';
+            }
+        }
+        
+        function showMessage(text, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = text;
+            messageBox.className = `message ${type}`;
+        }
+
+        // Check if already logged in
+        window.onload = function() {
+            const loggedIn = localStorage.getItem('slotlycare_logged_in');
+            if (loggedIn === 'true') {
+                window.location.href = 'painel.html';
+            }
+        };
+    </script>
+</body>
+</html>

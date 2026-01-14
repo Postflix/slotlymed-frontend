@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - SlotlyCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 50%, #E0F2FE 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            color: #0F172A;
+            margin-bottom: 8px;
+        }
+
+        .logo h1 span {
+            color: #3B82F6;
+        }
+
+        .logo p {
+            color: #64748B;
+            margin-bottom: 30px;
+        }
+
+        .plan-card {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            border-radius: 16px;
+            padding: 30px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .plan-billing {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .features {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            list-style: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li svg {
+            width: 20px;
+            height: 20px;
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        .btn-subscribe {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-subscribe:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            color: #64748B;
+            font-size: 0.85rem;
+        }
+
+        .login-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .login-link a {
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Slotly<span>Care</span></h1>
+            <p>AI-Powered Scheduling for Healthcare Professionals</p>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-name">Professional Plan</div>
+            <div class="plan-price">$79<span>/month</span></div>
+            <div class="plan-billing">Billed annually ($948/year)</div>
+        </div>
+
+        <ul class="features">
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                AI-powered schedule generation
+            </li>
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Unlimited patient bookings
+            </li>
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Custom booking page with your branding
+            </li>
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                6 languages supported
+            </li>
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Appointment dashboard
+            </li>
+            <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Google Calendar integration
+            </li>
+        </ul>
+
+        <div id="errorMessage" class="message" style="display: none;"></div>
+
+        <button class="btn-subscribe" id="btnSubscribe" onclick="handleSubscribe()">
+            Subscribe Now
+        </button>
+
+        <div class="secure-badge">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            Secure payment powered by Stripe
+        </div>
+
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://slotlycare-backend.vercel.app';
+
+        async function handleSubscribe() {
+            const btn = document.getElementById('btnSubscribe');
+            const errorBox = document.getElementById('errorMessage');
+            
+            // Hide error
+            errorBox.style.display = 'none';
+            
+            // Show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Redirecting to checkout...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/create-checkout-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        success_url: window.location.origin + '/success.html',
+                        cancel_url: window.location.origin + '/subscribe.html'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.checkout_url) {
+                    // Redirect to Stripe Checkout
+                    window.location.href = data.checkout_url;
+                } else {
+                    throw new Error(data.error || 'Failed to create checkout session');
+                }
+            } catch (error) {
+                errorBox.textContent = 'Error: ' + error.message;
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = 'Subscribe Now';
+            }
+        }
+    </script>
+</body>
+</html>
