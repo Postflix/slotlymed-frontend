@@ -1603,19 +1603,6 @@ function tryExample(button, exampleNumber) {
     }
 }
 
-function processSchedule() {
-    const btn = document.getElementById('btnProcessSchedule');
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
-    
-    setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = originalText;
-        showMessage(translations[currentLanguage].schedule_processed, 'success');
-    }, 1500);
-}
-
 async function saveConfiguration() {
     // Validação de campos obrigatórios
     const doctorName = document.getElementById('doctorName').value.trim();
