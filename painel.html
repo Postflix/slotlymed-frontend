@@ -1424,9 +1424,12 @@ function updatePreview() {
     }
 }
 
-['doctorName', 'specialty', 'address', 'phone', 'email', 'welcomeMsg', 'additionalInfo'].forEach(id => {
+['doctorName', 'specialty', 'address', 'phone', 'email', 'welcomeMsg'].forEach(id => {
     document.getElementById(id).addEventListener('input', updatePreview);
 });
+
+// Listener separado para textarea
+document.getElementById('additionalInfo').addEventListener('input', updatePreview);
 
 // Gerar sugestão de link quando o nome mudar
 document.getElementById('doctorName').addEventListener('input', function() {
